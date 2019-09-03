@@ -4,91 +4,85 @@ namespace Mysql;
 
 class Db
 {
-    # @object, The PDO object
+    // 定义pdo对象
     private $pdo;
-
-    # @object, PDO statement object
     private $sQuery;
-
-    # @array,  The database settings
+    // 定义数据库配置
     private $settings;
-
-    # @bool ,  Connected to the database
+    // 定义数据库连接转态
     private $bConnected = false;
-
-    # @object, Object for logging exceptions
+    // 日志
     private $log;
-
-    # @array, The parameters of the SQL query
+    // 参数
     private $parameters;
-
+    // 定义一个静态变量存储创建的实例
     private static $instances = array();
 
-    public static function getInstance($name = 'master') {
-        if (isset(self::$instances[$name])) {
+    /**
+     * 使用单例模式创建实例对象
+     * @param  string $name [数据库连接名]
+     */
+    public static function getInstance($name = 'master')
+    {
+        // 判断是否有存在的实例
+        if(isset(self::$instances[$name])){
             return self::$instances[$name];
         }
+        // 创建实例
         self::$instances[$name] = new \Mysql\Db($name);
         return self::$instances[$name];
     }
 
     /**
-     *   Default Constructor
-     *
-     *    1. Instantiate Log class.
-     *    2. Connect to database.
-     *    3. Creates the parameter array.
+     * 定义构造函数来连接数据库
+     * @param  string $name [连接名]
      */
-    private function __construct($name = 'master')
+    private function __contruct($name = 'master')
     {
+        // 连接数据库
         $this->Connect($name);
-        $this->parameters = array();
+        $this->paramters = array();
     }
 
     /**
-     *    This method makes connection to the database.
-     *
-     *    1. Reads the database settings from a ini file.
-     *    2. Puts  the ini content into the settings array.
-     *    3. Tries to connect to the database.
-     *    4. If connection failed, exception is displayed and a log file gets created.
+     * 连接数据库
+     * @param string $name [description]
      */
     private function Connect($name = 'master')
     {
+        // 获取连接的配置信息
         global $config;
+        // 定义数据库开始连接时间
         $mtime1 = microtime();
         $this->settings = $config['db'][$name];
-        $dsn = 'mysql:dbname=' . $this->settings["dbname"] . ';host=' . $this->settings["host"] . '';
+        // 定义连接
+        $dsn = 'mysql:dbname=' . $this->settings['dbname'] . ';host=' . $this->settings['host'] . '';
         try {
-            # Read settings from INI file, set UTF8
+            // 连接数据库，返回格式以utf8的格式
             $this->pdo = new \PDO($dsn, $this->settings["user"], $this->settings["password"], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8;"));
-
-            # We can now log any exceptions on Fatal error.
-            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-            # Disable emulation of prepared statements, use REAL prepared statements instead.
-            $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
-
-            # Connection succeeded, set the boolean to true.
+            // 记录致命错误的任何异常
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
+            // 启用预处理
+            $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES,true);
+            // 连接状态
             $this->bConnected = true;
-        } catch (\PDOException $e) {
-            # Write into log
+        }catch(\PDOException $e) {
+            // 连接失败时打印出错误，输出异常信息
             print_r($e);
             echo $this->ExceptionLog($e->getMessage());
             die();
         }
+        // 连接结束的时间
         $mtime2 = microtime();
-        \common\DebugLog::_mysql('connect', null, array('host' => $this->settings['host'], 'dbname' => $this->settings['dbname']), $mtime1, $mtime2, null);
+        // 把创建数据库的时间记录到日志
+        \common\DebugLog::_mysql('connect',null,array('host' => $this->settings['host'],'dbname' => $this->settings['dbname']),$mtime1,$mtime2,null);
     }
 
-    /*
-     *   You can use this little method if you want to close the PDO connection
-     *
+    /**
+     * 关闭数据库连接
      */
     public function CloseConnection()
     {
-        # Set the PDO object to null to close the connection
-        # http://www.php.net/manual/en/pdo.connections.php
         $this->pdo = null;
     }
 
@@ -278,7 +272,7 @@ class Db
     }
 
     /**
-     * Writes the log and returns the exception
+     * 异常处理
      *
      * @param  string $message
      * @param  string $sql
@@ -299,6 +293,4 @@ class Db
     }
 
 
-
 }
-
