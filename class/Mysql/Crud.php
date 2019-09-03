@@ -1,11 +1,12 @@
 <?php
 
 namespace Mysql;
+
 class Crud {
 
-	private $db;
+	private   $db;
     protected $fields;
-	public $variables;
+	public    $variables;
 
 	public function __construct($data = array()) {
         if ($this->fields && $data) {
@@ -114,14 +115,17 @@ class Crud {
 		}
         return $this->variables;
 	}
-
 	public function all(){
-		return $this->getDb()->query("SELECT * FROM `" . $this->table . '`');
+		return $this->getDb()->query("SELECT * FROM" . `$this->table`);
 	}
 
-    public function count(){
-        return $this->getDb()->query("SELECT COUNT(1) FROM `" . $this->table . '`');
-    }
+	// public function all(){
+	// 	return $this->getDb()->query("SELECT * FROM `" . $this->table . '`');
+	// }
+	//
+    // public function count(){
+    //     return $this->getDb()->query("SELECT COUNT(1) FROM `" . $this->table . '`');
+    // }
 
 //	public function min($field)  {
 //		if($field)
