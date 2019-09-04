@@ -61,9 +61,9 @@ $question_info = array('aid' => $aid, 'id' => $question_info['id'],
     'uid' => $uid, 'ip' => $ip, 'now' => time()
 );
 
-$sign = signQuestion($question_info);
+// $sign = signQuestion($question_info);
 
-$result = array('sign' => $sign,
+$result = array('sign' => $question_info,
     'ask' => $ask, 'datalist' => $datalist_answer, 'title' => $question_info['title'],
 );
 // TODO: 每个人获取到的问题数量是要限制的，否则很容易就被全部获取和分析，失去问题的保密性

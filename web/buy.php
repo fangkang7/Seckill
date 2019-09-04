@@ -4,7 +4,6 @@
  */
 
 include 'init.php';
-var_dump(123);
 
 $TEMPLATE['type'] = 'buy';
 $TEMPLATE['pageTitle'] = '抢购';
@@ -19,6 +18,7 @@ $goods_num = getReqInt('goods_num');
 $sign_data = $_POST['sign_data'];
 # 问题
 $question_sign = $_POST['question_sign'];
+
 $ask = $_POST['ask'];
 # 用户答案
 $answer = $_POST['answer'];
@@ -47,8 +47,9 @@ if (!$active_id || !$goods_id
 }
 // 3.1 验证活动状态信息
 $status_check = false;
-$str_sign_data = unsignQuestion($sign_data);
-$sign_data_info = json_decode($str_sign_data, true);
+// $str_sign_data = unsignQuestion($sign_data);
+$sign_data_info = json_decode($sign_data, true);
+
 // 时间不能超过当前时间5分钟，IP和用户保持不变
 if ($sign_data_info
     && $sign_data_info['now'] < $now

@@ -90,7 +90,7 @@ function getQuestion(aid, goods_id, user_sign) {
 	var question_url = '/question.php?aid=' + aid;
 	htmlobj = $.ajax({
 			"url":question_url, async:true, 'dataType':'json', 'success': function(d) {
-//				console.log(d);
+				// console.log(d);
 				var sign = d['sign'];
 				var ask = d['ask'];
 				var title = d['title'];
