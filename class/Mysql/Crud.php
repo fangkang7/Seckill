@@ -22,11 +22,20 @@ class Crud {
     public function setDb($db) {
         $this->db = $db;
     }
+
+    /**
+     * author:咔咔
+     *
+     * 返回一个连接对象
+     */
     public function getDb() {
         if (!$this->db) {
+            // 使用单例模式创建实例对象
             $this->db = \Mysql\Db::getInstance('master');
         }
+        // 返回一个MySQL\Db的实例
         return $this->db;
+
     }
 
 	public function __set($name,$value){

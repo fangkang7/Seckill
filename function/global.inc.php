@@ -33,15 +33,12 @@ class SYSCore {
     public static function registerAutoload($class = 'SYSCore') {
         spl_autoload_register(array($class, 'autoload'));
     }
-
     public static function unregisterAutoload($class) {
     	spl_autoload_unregister(array($class, 'autoload'));
     }
-
 	public static function my_callback($match){
 		return DIRECTORY_SEPARATOR. $match[0];
 	}
-
     public static function autoload($class_name) {
         if (strpos($class_name, 'common') === 0
             || strpos($class_name, 'model') === 0
@@ -54,19 +51,19 @@ class SYSCore {
             return true;
         }
 		$class_name = str_replace('\\', '/', $class_name);
-
         $class_path = CUSTOM_CLASS_PATH . DIRECTORY_SEPARATOR . $class_name.'.php';
         $class_path = str_replace('//', '/', $class_path);
+        # 判断文件是否存在
         if(file_exists($class_path)) {
+            # 如果存在则引入
             return include_once($class_path);
         } else {
+            # 报出警告信息
             echo "file not exists class_path=$class_path\n<br/>";
         }
-
         return false;
     }
 }
-
 SYSCore::registerAutoload();
 
 /*---Debug Begin---*/

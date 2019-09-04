@@ -216,7 +216,6 @@ function cutstr($string, $length, $suffix = '')
  * @param int $length	切割的长度
  * @param string $suffix	后缀名
  * @return string
- * @author 王毅
  */
 function ccutstr($string, $length, $suffix = '')
 {

@@ -30,6 +30,7 @@ class Db
         }
         // 创建实例
         self::$instances[$name] = new \Mysql\Db($name);
+        // 返回实例对象
         return self::$instances[$name];
     }
 
@@ -37,7 +38,7 @@ class Db
      * 定义构造函数来连接数据库
      * @param  string $name [连接名]
      */
-    private function __contruct($name = 'master')
+    private function __construct($name = 'master')
     {
         // 连接数据库
         $this->Connect($name);
@@ -104,7 +105,7 @@ class Db
         }
         try {
 
-            # Prepare query
+            # 预查询
             $this->sQuery = $this->pdo->prepare($query);
 
             # Add parameters to the parameter array
@@ -114,6 +115,11 @@ class Db
                 $this->succes = $this->sQuery->execute($parameters);
             } else {
                 // :fieldname 字段名形式
+                /**
+                 array (size=2)
+                'sys_status' => int 1
+                'now' => int 1567568557
+                 */
                 $this->bindMore($parameters);
                 # Bind parameters
                 if (!empty($this->parameters)) {
@@ -144,14 +150,20 @@ class Db
      */
     public function bind($para, $value)
     {
+        /**
+        $para  :string 'sys_status' (length=10)
+        $value :int 1
+         */
+        # $para 键   #valuse值
         if (is_array($para)) {
             $para = json_encode($para);
         }
         if (is_array($value)) {
             $value = json_encode($value);
         }
-        $this->parameters[sizeof($this->parameters)] = ":" . $para . "\x7F" . $value;
-//        $this->parameters[sizeof($this->parameters)] = ":" . $para . "\x7F" . utf8_encode($value);
+        // $this->parameters[sizeof($this->parameters)] = ":" . $para . "\x7F" . $value;
+        $this->parameters[] = ":" . $para . "\x7F" . $value;
+
     }
 
     /**
@@ -163,7 +175,9 @@ class Db
     public function bindMore($parray)
     {
         if (empty($this->parameters) && is_array($parray)) {
+            # 获取数组的键
             $columns = array_keys($parray);
+            // var_dump($columns);
             foreach ($columns as $i => &$column) {
                 $this->bind($column, $parray[$column]);
             }
@@ -183,16 +197,33 @@ class Db
     {
         $mtime1 = microtime();
         $query = trim($query);
-
+        // 查询初始化
         $this->Init($query, $params);
-
+        // 把sql语句进行拆分
+        /**
+        array (size=12)
+        0 => string 'SELECT' (length=6)
+        1 => string '*' (length=1)
+        2 => string 'FROM' (length=4)
+        3 => string '`ms_active`' (length=11)
+        4 => string 'WHERE' (length=5)
+        5 => string 'sys_status=:sys_status' (length=22)
+        6 => string 'AND' (length=3)
+        7 => string 'time_end>:now' (length=13)
+        8 => string 'ORDER' (length=5)
+        9 => string 'BY' (length=2)
+        10 => string '`id`' (length=4)
+        11 => string 'DESC' (length=4)
+         */
         $rawStatement = explode(" ", $query);
 
-        # Which SQL statement is used
+        // 获取第一个
+        // Mysql\Db.php:208:string 'select' (length=6)
         $statement = strtolower($rawStatement[0]);
-
         $ret = NULL;
+        // 在这里进行判断，进行选择对应的数据库操作方法
         if ($statement === 'select' || $statement === 'show') {
+            // $this->sQuery = 预查询语句
             $ret = $this->sQuery->fetchAll($fetchmode);
         } elseif ($statement === 'insert' || $statement === 'update' || $statement === 'delete') {
             $ret = $this->sQuery->rowCount();
