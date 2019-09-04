@@ -13,7 +13,9 @@ if (!$login_userinfo || !$login_userinfo['uid']) {
     return_result($result);
 }
 $uid = $login_userinfo['uid'];
+
 $ip = getClientIp();
+// $ip = '127.0.0.1';
 
 $aid = getReqInt('aid');
 
