@@ -15,13 +15,17 @@ $goods_model = new \model\Goods();
 $active_id = getReqInt('active_id');
 $goods_id = getReqInt('goods_id');
 $goods_num = getReqInt('goods_num');
-$sign_data = $_POST['sign_data'];
-# 问题
-$question_sign = $_POST['question_sign'];
 
 $ask = $_POST['ask'];
 # 用户答案
 $answer = $_POST['answer'];
+$goods_id = $_POST['goods_id'];
+$aid = $_POST['aid'];
+$ip = $_POST['ip'];
+$uid = $_POST['uid'];
+// 这个时间是用户发起请求的时间
+$nows = $_POST['now'];
+
 # 方式
 $action = isset($_POST['action']) ? $_POST['action'] : false;
 
@@ -41,21 +45,20 @@ $uid = $login_userinfo['uid'];
 $username = $login_userinfo['username'];
 // 2 验证参数是否正确、合法
 if (!$active_id || !$goods_id
-    || !$goods_num || !$question_sign) {
+    || !$goods_num) {
     $result = array('error_no' => '102', 'error_msg' => '参数提交异常');
     show_result($result);
 }
 // 3.1 验证活动状态信息
 $status_check = false;
 // $str_sign_data = unsignQuestion($sign_data);
-$sign_data_info = json_decode($sign_data, true);
+// $sign_data_info = json_decode($question_sign, true);
 
 // 时间不能超过当前时间5分钟，IP和用户保持不变
-if ($sign_data_info
-    && $sign_data_info['now'] < $now
-    && $sign_data_info['now'] > $now - 300
-    && $sign_data_info['ip'] == $client_ip
-    && $sign_data_info['uid'] == $uid
+if ( $nows < $now
+    && $nows > $now - 300
+    && $ip == $client_ip
+    && $uid == $uid
 ) {
     $status_check = true;
 }
@@ -66,7 +69,7 @@ if (!$status_check) {
 // 3.2 验证问答信息是否正确
 # 默认没有验证
 $question_check = false;
-$str_question = unsignQuestion($question_sign);
+// $str_question = unsignQuestion($question_sign);
 # 问题信息
 $question_info = json_decode(trim($str_question), true);
 if ($str_question && $question_info) {

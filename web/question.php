@@ -63,9 +63,12 @@ $question_info = array('aid' => $aid, 'id' => $question_info['id'],
 
 // $sign = signQuestion($question_info);
 
-$result = array('sign' => $question_info,
-    'ask' => $ask, 'datalist' => $datalist_answer, 'title' => $question_info['title'],
-);
+// $result = array('sign' => $question_info,
+//     'ask' => $ask, 'datalist' => $datalist_answer, 'title' => $question_info['title'],
+// );
+
+# 咔咔修改
+$result = $question_info;
 // TODO: 每个人获取到的问题数量是要限制的，否则很容易就被全部获取和分析，失去问题的保密性
 //print_r($result);
 return_result($result);

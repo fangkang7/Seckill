@@ -90,20 +90,28 @@ function getQuestion(aid, goods_id, user_sign) {
 	var question_url = '/question.php?aid=' + aid;
 	htmlobj = $.ajax({
 			"url":question_url, async:true, 'dataType':'json', 'success': function(d) {
-				// console.log(d);
-				var sign = d['sign'];
+				console.log(d)
 				var ask = d['ask'];
 				var title = d['title'];
+				var uid = d['uid'];
+				var answer = d['answer'];
+				var goods_id = d['id'];
+				var aid = d['aid'];
+				var now = d['now'];
+				var ip = d['ip'];
 				var html = '';
 				for (var i in d['datalist']) {
 					html += '<label><input type="radio" value="' + d['datalist'][i] + '" name="answer" /> ' + d['datalist'][i] + '</label><br/>';
 				}
 				html += '<label>商品数量： <input type="text" name="goods_num" value="1" /></label>';
-				html += '<input type="hidden" name="question_sign" value="' + sign + '" />';
 				html += '<input type="hidden" name="ask" value="' + ask + '" />';
+				html += '<input type="hidden" name="answer" value="' + answer + '" />';
+				html += '<input type="hidden" name="uid" value="' + uid + '" />';
+				html += '<input type="hidden" name="ip" value="' + ip + '" />';
+				html += '<input type="hidden" name="now" value="' + now + '" />';
 				html += '<input type="hidden" name="active_id" value="' + aid + '" />';
 				html += '<input type="hidden" name="goods_id" value="' + goods_id + '" />';
-                html += '<input type="hidden" name="user_sign" value="' + user_sign + '" />';
+                // html += '<input type="hidden" name="user_sign" value="' + user_sign + '" />';
 				$("#question_info").html('<div class="modal-body">' + title + '[' + ask + ']</div>'
 					+ '<div class="modal-body">' + html + '</div>'
 					+ '<div class="modal-footer"><input type="submit" value="提交订单" /></div>');
