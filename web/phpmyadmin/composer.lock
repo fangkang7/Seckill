@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ca6da93b2cef0aedd47919d3aecf143",
+    "content-hash": "0214448c0454fa1ae6b7484103c2202e",
     "packages": [
         {
             "name": "google/recaptcha",
@@ -213,16 +213,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.4",
+            "version": "2.0.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf"
+                "reference": "233a920cb38636a43b18d428f9a8db1f0a1a08f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
-                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/233a920cb38636a43b18d428f9a8db1f0a1a08f4",
+                "reference": "233a920cb38636a43b18d428f9a8db1f0a1a08f4",
                 "shasum": ""
             },
             "require": {
@@ -230,8 +230,7 @@
             },
             "require-dev": {
                 "phing/phing": "~2.7",
-                "phpunit/phpunit": "~4.0",
-                "sami/sami": "~2.0",
+                "phpunit/phpunit": "^4.8.35|^5.7|^6.0|^9.4",
                 "squizlabs/php_codesniffer": "~2.0"
             },
             "suggest": {
@@ -301,7 +300,25 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2016-10-04T00:57:04+00:00"
+            "support": {
+                "issues": "https://github.com/phpseclib/phpseclib/issues",
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.31"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/terrafrost",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/phpseclib",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpseclib/phpseclib",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-04-06T13:56:45+00:00"
         },
         {
             "name": "psr/cache",
@@ -561,69 +578,6 @@
             "description": "Symfony ExpressionLanguage Component",
             "homepage": "https://symfony.com",
             "time": "2017-05-01T14:55:58+00:00"
-        },
-        {
-            "name": "tecnickcom/tcpdf",
-            "version": "6.2.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/2f732eaa91b5665274689b1d40b285a7bacdc37f",
-                "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "fonts",
-                    "config",
-                    "include",
-                    "tcpdf.php",
-                    "tcpdf_parser.php",
-                    "tcpdf_import.php",
-                    "tcpdf_barcodes_1d.php",
-                    "tcpdf_barcodes_2d.php",
-                    "include/tcpdf_colors.php",
-                    "include/tcpdf_filters.php",
-                    "include/tcpdf_font_data.php",
-                    "include/tcpdf_fonts.php",
-                    "include/tcpdf_images.php",
-                    "include/tcpdf_static.php",
-                    "include/barcodes/datamatrix.php",
-                    "include/barcodes/pdf417.php",
-                    "include/barcodes/qrcode.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPLv3"
-            ],
-            "authors": [
-                {
-                    "name": "Nicola Asuni",
-                    "email": "info@tecnick.com",
-                    "homepage": "http://nicolaasuni.tecnick.com"
-                }
-            ],
-            "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
-            "homepage": "http://www.tcpdf.org/",
-            "keywords": [
-                "PDFD32000-2008",
-                "TCPDF",
-                "barcodes",
-                "datamatrix",
-                "pdf",
-                "pdf417",
-                "qrcode"
-            ],
-            "time": "2015-09-12T10:08:34+00:00"
         },
         {
             "name": "twig/extensions",
@@ -2673,6 +2627,69 @@
             "time": "2017-05-01T14:55:58+00:00"
         },
         {
+            "name": "tecnickcom/tcpdf",
+            "version": "6.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/TCPDF.git",
+                "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/2f732eaa91b5665274689b1d40b285a7bacdc37f",
+                "reference": "2f732eaa91b5665274689b1d40b285a7bacdc37f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fonts",
+                    "config",
+                    "include",
+                    "tcpdf.php",
+                    "tcpdf_parser.php",
+                    "tcpdf_import.php",
+                    "tcpdf_barcodes_1d.php",
+                    "tcpdf_barcodes_2d.php",
+                    "include/tcpdf_colors.php",
+                    "include/tcpdf_filters.php",
+                    "include/tcpdf_font_data.php",
+                    "include/tcpdf_fonts.php",
+                    "include/tcpdf_images.php",
+                    "include/tcpdf_static.php",
+                    "include/barcodes/datamatrix.php",
+                    "include/barcodes/pdf417.php",
+                    "include/barcodes/qrcode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "homepage": "http://nicolaasuni.tecnick.com"
+                }
+            ],
+            "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
+            "homepage": "http://www.tcpdf.org/",
+            "keywords": [
+                "PDFD32000-2008",
+                "TCPDF",
+                "barcodes",
+                "datamatrix",
+                "pdf",
+                "pdf417",
+                "qrcode"
+            ],
+            "time": "2015-09-12T10:08:34+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.2.0",
             "source": {
@@ -2738,5 +2755,6 @@
         "ext-pcre": "*",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
